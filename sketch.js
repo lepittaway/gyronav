@@ -1,5 +1,5 @@
 /* Location & Adjustments */
-var canvasRad = 10000; //real (screen) area size
+var canvasRad = 3000; //real (screen) area size
 var offsetX, offsetY;
 var areaW = 100; 
 var areaH = 100;
