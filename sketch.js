@@ -6,7 +6,11 @@ var areaH = 100;
 var para;
 var hiyaaaaa;
 
+var beta, gamma;
+
 var hi44;
+
+
 
 var texts = [];
 var texts2 = [];
@@ -56,6 +60,9 @@ function setup() {
   document.addEventListener("touchmove", preventBehavior, {passive: false});
   audioDiam = map(aD, 0, 100, 0, canvasRad*2); //real (screen) area diameter
   
+  beta = 0;
+  gamma = 0;
+  
   /* ---------------- SOUND ---------------- */
   for (var i = 0; i < interviews.length; i += 5) {
     sounds.push(new Sound(interviews[i + 2], interviews[i], interviews[i + 1], audioDiamS, audioDiam, 'red', i));
@@ -72,6 +79,7 @@ function draw() {
   /* ---------------- ENVIRONMENT ---------------- */
   background('#0f0f0f');
   
+  angleMode(DEGREES);
   offsetX = windowWidth/2; //adjustment to centre
   offsetY = windowHeight/2; //adjustment to centre
   
@@ -112,6 +120,19 @@ function draw() {
   //texts2[1].x = map(interviewsX[1], 0, 100, -canvasRad, canvasRad) + offsetX - gx;
   //texts2[1].y = map(interviewsY[1], 0, 100, -canvasRad, canvasRad) + offsetY - gy;
   //texts2[1].position(map(interviewsX[1], 0, 100, -canvasRad, canvasRad) + offsetX - gx, map(interviewsY[1], 0, 100, -canvasRad, canvasRad) + offsetY - gy);
+  
+  var b = constrain(beta, -20, 20);
+  var b2 = map(b, -20, 20, -2, 2);
+  
+  var g = constrain(abs(gamma), 20, 60);
+  var g2 = map(g, 20, 60, -2, -2);
+  
+  var realNumx = b2;
+  gx -= realNumx;
+  meX -= map(realNumx, 0, canvasRad*2, 0, 100);
+  var realNumy = g2;
+  gy -= g2;
+  meY -= map(realNumy, 0, canvasRad*2, 0, 100);
   
   
   
@@ -315,15 +336,22 @@ function StartButton(x, y, radius) {
 
 function touchMoved() {
   
-  var realNumx = mouseX - pmouseX;
+  /*var realNumx = mouseX - pmouseX;
   gx -= realNumx;
   meX -= map(realNumx, 0, canvasRad*2, 0, 100);
   var realNumy = mouseY - pmouseY;
   gy -= realNumy;
-  meY -= map(realNumy, 0, canvasRad*2, 0, 100);
+  meY -= map(realNumy, 0, canvasRad*2, 0, 100);*/
   
 }
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
+window.addEventListener('deviceorientation', function(e) {
+  
+  alpha = e.alpha;
+  beta = e.beta;
+  gamma = e.gamma;
+  
+});
